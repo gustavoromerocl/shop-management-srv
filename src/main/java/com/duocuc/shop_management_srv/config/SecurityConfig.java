@@ -33,6 +33,7 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(HttpMethod.GET, "/api/products").permitAll() // Permitir SOLO GET /api/products
+            .requestMatchers(HttpMethod.POST, "/api/orders").permitAll() // Permitir SOLO GET /api/orders
             .requestMatchers(HttpMethod.GET, "/api/products/{id:[\\d]+}").permitAll()
             .anyRequest().authenticated() // Proteger todas las demás rutas
         )

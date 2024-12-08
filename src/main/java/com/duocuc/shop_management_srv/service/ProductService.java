@@ -1,5 +1,8 @@
 package com.duocuc.shop_management_srv.service;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -46,5 +49,11 @@ public class ProductService {
   public ProductDto getProductById(Long id) {
     String url = productServiceUrl + "/" + id;
     return restTemplate.getForObject(url, ProductDto.class);
+  }
+
+  public List<ProductDto> getProductsByIds(List<Long> ids) {
+    String url = String.format("%s/search/ids?ids=%s", productServiceUrl, String.join(",", ids.toString()));
+    return Arrays.asList(
+        restTemplate.getForObject(url, ProductDto[].class));
   }
 }

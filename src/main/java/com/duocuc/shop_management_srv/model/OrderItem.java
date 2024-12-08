@@ -11,21 +11,24 @@ public class OrderItem {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
   private Long productId;
-  private String productName;
-  private double price;
+  private String name;
+  private Double price;
   private int quantity;
 
-  // Getters y Setters
-  public Long getId() {
-    return id;
+  // Constructor predeterminado
+  public OrderItem() {
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  // Constructor con todos los campos necesarios
+  public OrderItem(Long productId, String name, Double price, int quantity) {
+    this.productId = productId;
+    this.name = name;
+    this.price = price;
+    this.quantity = quantity;
   }
 
+  // Getters y setters
   public Long getProductId() {
     return productId;
   }
@@ -34,19 +37,19 @@ public class OrderItem {
     this.productId = productId;
   }
 
-  public String getProductName() {
-    return productName;
+  public String getName() {
+    return name;
   }
 
-  public void setProductName(String productName) {
-    this.productName = productName;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public double getPrice() {
+  public Double getPrice() {
     return price;
   }
 
-  public void setPrice(double price) {
+  public void setPrice(Double price) {
     this.price = price;
   }
 

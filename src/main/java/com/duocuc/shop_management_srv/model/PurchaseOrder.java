@@ -19,7 +19,6 @@ public class PurchaseOrder {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
   private String orderNumber;
   private LocalDateTime orderDate;
   private Double totalAmount;
@@ -29,9 +28,9 @@ public class PurchaseOrder {
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "purchase_order_id")
-  private List<OrderItem> items;
+  private List<OrderItem> products;
 
-  // Getters y Setters
+  // Getters y setters
   public Long getId() {
     return id;
   }
@@ -72,11 +71,11 @@ public class PurchaseOrder {
     this.status = status;
   }
 
-  public List<OrderItem> getItems() {
-    return items;
+  public List<OrderItem> getProducts() {
+    return products;
   }
 
-  public void setItems(List<OrderItem> items) {
-    this.items = items;
+  public void setProducts(List<OrderItem> products) {
+    this.products = products;
   }
 }

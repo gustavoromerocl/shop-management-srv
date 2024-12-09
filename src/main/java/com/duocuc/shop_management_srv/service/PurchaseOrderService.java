@@ -1,5 +1,7 @@
 package com.duocuc.shop_management_srv.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -63,9 +65,9 @@ public class PurchaseOrderService {
 
     // Crear la entidad PurchaseOrder
     PurchaseOrder order = new PurchaseOrder();
-    order.setOrderNumber(requestDto.getOrderNumber());
-    order.setOrderDate(requestDto.getOrderDate());
-    order.setStatus(requestDto.getStatus() != null ? requestDto.getStatus() : OrderStatus.PENDING);
+    order.setOrderNumber(generateOrderNumber()); // Genera el número de orden
+    order.setOrderDate(LocalDateTime.now()); // Asigna la fecha actual
+    order.setStatus(OrderStatus.PENDING); // Estado por defecto
     order.setProducts(validatedItems);
     order.setTotalAmount(totalAmount);
 
@@ -74,12 +76,18 @@ public class PurchaseOrderService {
   }
 
   private Map<Long, ProductDto> validateProducts(List<Long> productIds) {
-    String url = productServiceUrl + "/by-ids";
+    String url = productServiceUrl + "/by-ids"; // Endpoint POST
     ProductDto[] products = restTemplate.postForObject(url, productIds, ProductDto[].class);
     if (products == null || products.length == 0) {
       throw new IllegalArgumentException("No se encontraron productos válidos para los IDs proporcionados.");
     }
     return List.of(products).stream()
-        .collect(Collectors.toMap(ProductDto::getId, product -> product));
+        .collect(Collectors.toMap(ProductDto::getId, product -> product)); // Ahora usa el DTO de producto
+  }
+
+  private String generateOrderNumber() {
+    long count = purchaseOrderRepository.count(); // Total de órdenes existentes
+    String datePart = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")); // Fecha en formato YYYYMMDD
+    return "ORD-" + datePart + "-" + (count + 1); // Genera un número único basado en la fecha y el conteo
   }
 }

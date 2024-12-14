@@ -85,7 +85,7 @@ public class PurchaseOrderService {
         .collect(Collectors.toMap(ProductDto::getId, product -> product)); // Ahora usa el DTO de producto
   }
 
-  private String generateOrderNumber() {
+  String generateOrderNumber() {
     long count = purchaseOrderRepository.count(); // Total de órdenes existentes
     String datePart = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")); // Fecha en formato YYYYMMDD
     return "ORD-" + datePart + "-" + (count + 1); // Genera un número único basado en la fecha y el conteo

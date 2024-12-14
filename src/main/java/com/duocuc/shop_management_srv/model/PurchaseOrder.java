@@ -2,6 +2,7 @@ package com.duocuc.shop_management_srv.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -78,4 +79,39 @@ public class PurchaseOrder {
   public void setProducts(List<OrderItem> products) {
     this.products = products;
   }
+
+  // equals y hashCode
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    PurchaseOrder that = (PurchaseOrder) o;
+    return Objects.equals(id, that.id) &&
+        Objects.equals(orderNumber, that.orderNumber) &&
+        Objects.equals(orderDate, that.orderDate) &&
+        Objects.equals(totalAmount, that.totalAmount) &&
+        status == that.status &&
+        Objects.equals(products, that.products);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, orderNumber, orderDate, totalAmount, status, products);
+  }
+
+  // toString
+  @Override
+  public String toString() {
+    return "PurchaseOrder{" +
+        "id=" + id +
+        ", orderNumber='" + orderNumber + '\'' +
+        ", orderDate=" + orderDate +
+        ", totalAmount=" + totalAmount +
+        ", status=" + status +
+        ", products=" + products +
+        '}';
+  }
+
 }

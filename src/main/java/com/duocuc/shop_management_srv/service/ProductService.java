@@ -19,7 +19,7 @@ public class ProductService {
   private final RestTemplate restTemplate;
 
   @Value("${product-service.url}")
-  private String productServiceUrl;
+  String productServiceUrl;
 
   public ProductService(RestTemplate restTemplate) {
     this.restTemplate = restTemplate;

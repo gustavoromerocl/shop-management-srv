@@ -1,5 +1,7 @@
 package com.duocuc.shop_management_srv.dto;
 
+import java.util.Objects;
+
 public class ProductDto {
 
   private Long id;
@@ -79,5 +81,42 @@ public class ProductDto {
 
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
+  }
+
+  // Implementación de equals
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    ProductDto that = (ProductDto) o;
+    return Objects.equals(id, that.id) &&
+        Objects.equals(name, that.name) &&
+        Objects.equals(description, that.description) &&
+        Objects.equals(price, that.price) &&
+        Objects.equals(stock, that.stock) &&
+        Objects.equals(category, that.category) &&
+        Objects.equals(imageUrl, that.imageUrl);
+  }
+
+  // Implementación de hashCode
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, description, price, stock, category, imageUrl);
+  }
+
+  // Implementación de toString
+  @Override
+  public String toString() {
+    return "ProductDto{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", description='" + description + '\'' +
+        ", price=" + price +
+        ", stock=" + stock +
+        ", category=" + category +
+        ", imageUrl='" + imageUrl + '\'' +
+        '}';
   }
 }

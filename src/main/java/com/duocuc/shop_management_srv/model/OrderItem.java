@@ -1,5 +1,7 @@
 package com.duocuc.shop_management_srv.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -59,5 +61,36 @@ public class OrderItem {
 
   public void setQuantity(int quantity) {
     this.quantity = quantity;
+  }
+
+  // Sobrescribir equals
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    OrderItem orderItem = (OrderItem) o;
+    return quantity == orderItem.quantity &&
+        Objects.equals(productId, orderItem.productId) &&
+        Objects.equals(name, orderItem.name) &&
+        Objects.equals(price, orderItem.price);
+  }
+
+  // Sobrescribir hashCode
+  @Override
+  public int hashCode() {
+    return Objects.hash(productId, name, price, quantity);
+  }
+
+  // Sobrescribir toString
+  @Override
+  public String toString() {
+    return "OrderItem{" +
+        "productId=" + productId +
+        ", name='" + name + '\'' +
+        ", price=" + price +
+        ", quantity=" + quantity +
+        '}';
   }
 }
